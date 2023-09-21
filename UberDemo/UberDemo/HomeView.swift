@@ -32,6 +32,9 @@ struct HomeView: View {
                             mapState = .SearchingForDestination                          }
                     }
             }
+            else if mapState == .DestinationSelected{
+                RideRequestView().transition(.move(edge: .bottom))
+            }
             
             HomePageActionButton(mapState: $mapState)
               .padding(.leading)

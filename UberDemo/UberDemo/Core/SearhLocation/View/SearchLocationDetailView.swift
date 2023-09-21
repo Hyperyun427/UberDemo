@@ -20,20 +20,7 @@ struct SearchLocationDetailView: View {
               
               // Location bar View
               HStack{
-                  VStack{
-                      Circle()
-                          .fill(Color(.gray))
-                          .frame(width: 6,height: 6)
-                      
-                      Rectangle()
-                          .fill(Color(.gray))
-                          .frame(width: 1,height: 24)
-                      
-                      Circle()
-                          .fill(Color(.gray))
-                          .frame(width: 6,height: 6)
-                      
-                  }
+                  IconsForCurrentLocationToDest(isLargeIcon: false)
                   
                   VStack{
                       //deafult, changing text
