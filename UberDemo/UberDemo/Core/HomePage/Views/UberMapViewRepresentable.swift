@@ -16,6 +16,9 @@ struct UberMapViewRepresentable: UIViewRepresentable{
   let locationManager = LocationManager()
   //create a locationViewModel to get the taped location but different instance
   @EnvironmentObject var locationViewModel : SearchLocationViewModel
+  // need access to get mapstate using binding
+  @Binding var mapState: MapViewState
+
     
   func makeUIView(context: Context) -> some UIView{
       mapView.delegate = context.coordinator
@@ -31,11 +34,22 @@ struct UberMapViewRepresentable: UIViewRepresentable{
       _ uiView: Self.UIViewType,
       context: Self.Context
     ) {
-        if let coordinate = locationViewModel.selectedCoordinates{
-            context.coordinator.addAndSelectAnnotation(withCoordinate: coordinate)
-            context.coordinator.configurePolyline(withDestinationCoordinate: coordinate)
-            print("DEBUG: Selected Location in UberMapViewRepresentable is \(coordinate)")
+        print("mapState get from HomwView in UberMapViewRepresentable is \(mapState)")
+        
+        switch mapState {
+        case .defaultHomePage:
+            context.coordinator.clearMapViewAndRecenterRegion()
+        case .SearchingForDestination:
+            break
+        case .DestinationSelected:
+            if let coordinate = locationViewModel.selectedCoordinates{
+                context.coordinator.addAndSelectAnnotation(withCoordinate: coordinate)
+                context.coordinator.configurePolyline(withDestinationCoordinate: coordinate)
+                print("DEBUG: Selected Location in UberMapViewRepresentable is \(coordinate)")
+            }
+            break
         }
+        
     }
     
   func makeCoordinator() -> MapCoordinator{
@@ -52,6 +66,8 @@ extension UberMapViewRepresentable{
     class MapCoordinator: NSObject, MKMapViewDelegate{
         let parent: UberMapViewRepresentable
         var userLocationCoordinate: CLLocationCoordinate2D?
+        // rearrange annotaion and route in the middle of map
+        var currentRegion: MKCoordinateRegion?
         
         init(parent: UberMapViewRepresentable){
             self.parent = parent
@@ -64,6 +80,8 @@ extension UberMapViewRepresentable{
                 latitude:userLocation.coordinate.latitude,
                 longitude:userLocation.coordinate.longitude),
                 span: MKCoordinateSpan(latitudeDelta: 0.05,longitudeDelta:0.05))
+            
+            self.currentRegion = region
             
             //need parent to access data to mapView
             parent.mapView.setRegion(region, animated: true)
@@ -130,6 +148,16 @@ extension UberMapViewRepresentable{
             }
             
             
+        }
+        
+        func clearMapViewAndRecenterRegion(){
+            
+            //remove annotation and overlays
+            parent.mapView.removeAnnotations(parent.mapView.annotations)
+            parent.mapView.removeOverlays(parent.mapView.overlays)
+            
+            guard let currentRegion = currentRegion else{ return }
+            parent.mapView.setRegion(currentRegion, animated: true)
         }
         
         

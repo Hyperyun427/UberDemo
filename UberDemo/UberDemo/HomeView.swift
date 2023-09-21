@@ -17,7 +17,7 @@ struct HomeView: View {
         
         ZStack(alignment: .top){
             
-            UberMapViewRepresentable()
+            UberMapViewRepresentable(mapState: $mapState)
                 .ignoresSafeArea()
             
             if mapState == .SearchingForDestination {
