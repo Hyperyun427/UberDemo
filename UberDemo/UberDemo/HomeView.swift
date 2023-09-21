@@ -16,38 +16,30 @@ struct HomeView: View {
     var body: some View {
         
         ZStack(alignment: .top){
-   
-          UberMapViewRepresentable()
+            
+            UberMapViewRepresentable()
                 .ignoresSafeArea()
-            if showLocationDetailView{
+            
+            if mapState == .SearchingForDestination {
                 SearchLocationDetailView(mapState: $mapState )
-                
-                HomePageActionButton(mapState: $mapState)
-                    .padding(.leading)
             }
-            else{
+            else if mapState == .defaultHomePage{
                 SearchLocationBarView()
-                      .padding(.init(top: 70, leading: 0, bottom: 0, trailing: 0))
-                      .onTapGesture {
-                          withAnimation(.spring()){
-                              //showLocationDetailView = true
-                              showLocationDetailView.toggle()
-                          }
-                          
-                      }
-                  
-                HomePageActionButton(showLocationDetailView: $showLocationDetailView)
-                      .padding(.leading)
-                  
+                    .padding(.init(top: 70, leading: 0, bottom: 0, trailing: 0))
+                    .onTapGesture {
+                        withAnimation(.spring()){
+                            //showLocationDetailView = true
+                            mapState = .SearchingForDestination                          }
+                    }
             }
-        
             
-            
-            
+            HomePageActionButton(mapState: $mapState)
+              .padding(.leading)
             
         }
-        
     }
+    
+
 }
 
 struct HomeView_Previews: PreviewProvider {

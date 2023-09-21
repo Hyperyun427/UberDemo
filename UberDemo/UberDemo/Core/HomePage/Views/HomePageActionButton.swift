@@ -34,18 +34,18 @@ struct HomePageActionButton: View {
     func actionForState(_ state: MapViewState){
         switch state {
         case .defaultHomePage:
-            print("DEBUG: Default HomePage")
+            print("default home page")
         case .SearchingForDestination:
-            print("DEBUG: Searching For Destination")
+            mapState = .defaultHomePage
         case .DestinationSelected:
-            print("DEBUG: Destination Selected")
+            mapState = .defaultHomePage
         }
     }
     
     func imageNameForState(_ state: MapViewState) -> String{
         switch state {
         case .defaultHomePage:
-            return "line.3.horizintal"
+            return "line.3.horizontal"
         case .SearchingForDestination, .DestinationSelected:
             return "arrow.left"
  
