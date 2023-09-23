@@ -12,7 +12,7 @@ struct HomeView: View {
     // binding: share properties
     @State private var mapState = MapViewState.defaultHomePage
     //@EnvironmentObject var locationViewModel: SearchLocationViewModel
-
+    @EnvironmentObject var locationViewModel: SearchLocationViewModel
     var body: some View {
         
         ZStack(alignment: .bottom){
@@ -44,6 +44,12 @@ struct HomeView: View {
             }
         }
         .edgesIgnoringSafeArea(.bottom)
+        .onReceive(LocationManager.shared.$userLocation){location in
+            if let location = location{
+                locationViewModel.userLocation = location
+            }
+        }
+        
     }
     
 

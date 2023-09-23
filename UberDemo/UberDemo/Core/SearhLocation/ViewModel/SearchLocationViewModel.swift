@@ -31,6 +31,8 @@ class SearchLocationViewModel: NSObject, ObservableObject{
         searchCompleter.queryFragment = queryFragment
     }
     
+    var userLocation:CLLocationCoordinate2D?
+    
     //helper function to get selected location coordinate
     //transfer selected location to homepage
     func selectLocation(_ location: MKLocalSearchCompletion){
@@ -62,6 +64,19 @@ class SearchLocationViewModel: NSObject, ObservableObject{
         let search = MKLocalSearch(request: searchRequest)
         
         search.start(completionHandler: completion)
+    }
+    
+    func computeRidePrice(forType type: UberRideType) -> Double{
+        
+        guard let coordinate = selectedCoordinates else{ return 0.0 }
+        guard let userLocation = userLocation else { return 0.0 }
+        
+        let curLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+        let destination = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        
+        let tripDistanceInMeters = curLocation.distance(from: destination)
+        
+        return type.computePrice(for: tripDistanceInMeters)
     }
 }
 

@@ -13,7 +13,7 @@ struct UberMapViewRepresentable: UIViewRepresentable{
   //create map with apple mapView
   let mapView = MKMapView()
   // get user location with detailed accurate, updating frequency and aurthorize access
-  let locationManager = LocationManager()
+  let locationManager = LocationManager.shared
   //create a locationViewModel to get the taped location but different instance
   @EnvironmentObject var locationViewModel : SearchLocationViewModel
   // need access to get mapstate using binding
@@ -43,6 +43,7 @@ struct UberMapViewRepresentable: UIViewRepresentable{
             break
         case .DestinationSelected:
             if let coordinate = locationViewModel.selectedCoordinates{
+                print("DEBUG: Coordinate is \(coordinate)")
                 context.coordinator.addAndSelectAnnotation(withCoordinate: coordinate)
                 context.coordinator.configurePolyline(withDestinationCoordinate: coordinate)
                 print("DEBUG: Selected Location in UberMapViewRepresentable is \(coordinate)")

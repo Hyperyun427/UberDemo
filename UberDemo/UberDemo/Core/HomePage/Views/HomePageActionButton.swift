@@ -10,6 +10,7 @@ import SwiftUI
 struct HomePageActionButton: View {
     //use binding to create two-way conection between property
     @Binding var mapState: MapViewState
+    @EnvironmentObject var viewModel: SearchLocationViewModel
     var body: some View {
         Button{
             withAnimation(.spring()){
@@ -38,6 +39,8 @@ struct HomePageActionButton: View {
         case .SearchingForDestination:
             mapState = .defaultHomePage
         case .DestinationSelected:
+            viewModel.selectedLocation = nil
+            viewModel.selectedCoordinates = nil
             mapState = .defaultHomePage
         }
     }
