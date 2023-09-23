@@ -15,31 +15,35 @@ struct HomeView: View {
 
     var body: some View {
         
-        ZStack(alignment: .top){
-            
-            UberMapViewRepresentable(mapState: $mapState)
-                .ignoresSafeArea()
-            
-            if mapState == .SearchingForDestination {
-                SearchLocationDetailView(mapState: $mapState )
+        ZStack(alignment: .bottom){
+            ZStack(alignment: .top){
+                
+                UberMapViewRepresentable(mapState: $mapState)
+                    .ignoresSafeArea()
+                
+                if mapState == .SearchingForDestination {
+                    SearchLocationDetailView(mapState: $mapState )
+                }
+                else if mapState == .defaultHomePage{
+                    SearchLocationBarView()
+                        .padding(.init(top: 70, leading: 0, bottom: 0, trailing: 0))
+                        .onTapGesture {
+                            withAnimation(.spring()){
+                                //showLocationDetailView = true
+                                mapState = .SearchingForDestination                          }
+                        }
+                }
+                
+                HomePageActionButton(mapState: $mapState)
+                  .padding(.leading)
+                
             }
-            else if mapState == .defaultHomePage{
-                SearchLocationBarView()
-                    .padding(.init(top: 70, leading: 0, bottom: 0, trailing: 0))
-                    .onTapGesture {
-                        withAnimation(.spring()){
-                            //showLocationDetailView = true
-                            mapState = .SearchingForDestination                          }
-                    }
-            }
-            else if mapState == .DestinationSelected{
+            
+            if mapState == .DestinationSelected{
                 RideRequestView().transition(.move(edge: .bottom))
             }
-            
-            HomePageActionButton(mapState: $mapState)
-              .padding(.leading)
-            
         }
+        .edgesIgnoringSafeArea(.bottom)
     }
     
 

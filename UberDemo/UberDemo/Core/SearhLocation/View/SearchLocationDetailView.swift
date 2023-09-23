@@ -49,7 +49,10 @@ struct SearchLocationDetailView: View {
                               .onTapGesture {
                                   //transfer selected data when taped
                                   viewModel.selectLocation(result)
-                                  mapState = .DestinationSelected
+                                  withAnimation(.spring()){
+                                    mapState = .DestinationSelected
+                                  }
+                                  
                               }
                       }
                   }
