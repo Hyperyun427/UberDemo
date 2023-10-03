@@ -12,6 +12,7 @@ struct RideRequestView: View {
     @State private var selectedRideType: UberRideType = .uberX
     @EnvironmentObject var locationViewModel: SearchLocationViewModel
     @Binding var mapstate:MapViewState
+    @State private var showSuccessAlert = false
     var body: some View {
         VStack{
             Capsule()
@@ -131,7 +132,7 @@ struct RideRequestView: View {
           // confirm ride button
             
             Button{
-                mapstate = .defaultHomePage
+               showSuccessAlert = true
                 
             }label: {
                 Text("CONFIRM RIDE")
@@ -140,6 +141,13 @@ struct RideRequestView: View {
                     .background(.blue)
                     .cornerRadius(10)
                     .foregroundColor(.white)
+            }//alert when back t
+            .alert("Thank You For Riding With Us!",isPresented: $showSuccessAlert){
+                
+                Button("Sure", role: .cancel){
+                    mapstate = .defaultHomePage
+                    
+                }
             }
             
             
