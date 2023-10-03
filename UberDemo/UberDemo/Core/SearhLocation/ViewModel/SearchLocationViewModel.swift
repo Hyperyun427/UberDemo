@@ -13,6 +13,10 @@ class SearchLocationViewModel: NSObject, ObservableObject{
     //getting input from queryFragment, rework from apple to queryFragment and send to result
     @Published var results = [MKLocalSearchCompletion]()
     @Published var selectedCoordinate: UberLocation?
+    @Published var pickupTime: String?
+    @Published var dropoffTime: String?
+
+    
     
     private let searchCompleter = MKLocalSearchCompleter()
     //var selectedLocation: String?
@@ -55,6 +59,45 @@ class SearchLocationViewModel: NSObject, ObservableObject{
         }
         
     }
+    
+    // generate route through the coordinate
+    func getDestinationRoute(from userLocation: CLLocationCoordinate2D, to destinationLocation: CLLocationCoordinate2D, completion: @escaping(MKRoute) -> Void){
+        
+        // create MKDirection Request
+        let userPlacemark = MKPlacemark(coordinate: userLocation)
+        let desPlacemark = MKPlacemark(coordinate: destinationLocation)
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: userPlacemark)
+        request.destination = MKMapItem(placemark: desPlacemark)
+        
+        // pass to MKDirection
+        let directions = MKDirections(request: request)
+        
+        directions.calculate{ response, error in
+            if let error = error{
+                print("DEBUG: Failed to get directions to destination with error \(error.localizedDescription)")
+                return
+            }
+            
+            guard let route = response?.routes.first else{ return }
+            self.configPickupAndDropoffTime(with: route.expectedTravelTime)
+            completion(route)
+            
+        }
+    }
+    
+    // calcuate the pickup $$ dropoff time
+    func configPickupAndDropoffTime(with expectedTravelTime: Double){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm a"
+        
+        pickupTime = formatter.string(from: Date())
+        dropoffTime = formatter.string(from: Date() + expectedTravelTime)
+        
+        
+    }
+    
+    
     
     //transfer location string to coordinate
     //escaping is for escape response

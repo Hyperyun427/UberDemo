@@ -38,7 +38,7 @@ struct HomePageActionButton: View {
             print("default home page")
         case .SearchingForDestination:
             mapState = .defaultHomePage
-        case .DestinationSelected:
+        case .DestinationSelected, .polylineAdded:
             viewModel.selectedCoordinate = nil
             mapState = .defaultHomePage
         }
@@ -48,7 +48,7 @@ struct HomePageActionButton: View {
         switch state {
         case .defaultHomePage:
             return "line.3.horizontal"
-        case .SearchingForDestination, .DestinationSelected:
+        case .SearchingForDestination, .DestinationSelected, .polylineAdded:
             return "arrow.left"
  
         }

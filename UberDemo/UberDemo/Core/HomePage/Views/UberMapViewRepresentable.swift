@@ -49,6 +49,8 @@ struct UberMapViewRepresentable: UIViewRepresentable{
                 print("DEBUG: Selected Location in UberMapViewRepresentable is \(coordinate)")
             }
             break
+        case .polylineAdded:
+            break
         }
         
     }
@@ -119,8 +121,11 @@ extension UberMapViewRepresentable{
             
             parent.mapView.removeOverlays(parent.mapView.overlays)
             guard let userLocationCoordinate = userLocationCoordinate else{ return }
-            getDestinationRoute(from: userLocationCoordinate, to: coordinate){ route in
+            parent.locationViewModel.getDestinationRoute(from: userLocationCoordinate, to: coordinate){ route in
                 self.parent.mapView.addOverlay(route.polyline)
+                
+                //change state
+                self.parent.mapState = .polylineAdded
                 
                 //create a view to rearrange the route in DestinationSelected view
                 let rect = self.parent.mapView.mapRectThatFits(route.polyline.boundingMapRect, edgePadding: .init(top: 64, left: 32, bottom: 500, right: 32))
@@ -130,32 +135,6 @@ extension UberMapViewRepresentable{
             }
         }
         
-        // generate route through the coordinate
-        func getDestinationRoute(from userLocation: CLLocationCoordinate2D, to destinationLocation: CLLocationCoordinate2D, completion: @escaping(MKRoute) -> Void){
-            
-            // create MKDirection Request
-            let userPlacemark = MKPlacemark(coordinate: userLocation)
-            let desPlacemark = MKPlacemark(coordinate: destinationLocation)
-            let request = MKDirections.Request()
-            request.source = MKMapItem(placemark: userPlacemark)
-            request.destination = MKMapItem(placemark: desPlacemark)
-            
-            // pass to MKDirection
-            let directions = MKDirections(request: request)
-            
-            directions.calculate{ response, error in
-                if let error = error{
-                    print("DEBUG: Failed to get directions to destination with error \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let route = response?.routes.first else{ return }
-                completion(route)
-                
-            }
-            
-            
-        }
         
         func clearMapViewAndRecenterRegion(){
             
