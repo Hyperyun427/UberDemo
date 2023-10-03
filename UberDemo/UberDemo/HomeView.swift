@@ -13,6 +13,7 @@ struct HomeView: View {
     @State private var mapState = MapViewState.defaultHomePage
     //@EnvironmentObject var locationViewModel: SearchLocationViewModel
     @EnvironmentObject var locationViewModel: SearchLocationViewModel
+    
     var body: some View {
         
         ZStack(alignment: .bottom){

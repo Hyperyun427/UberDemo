@@ -20,6 +20,7 @@
 		1F8065052ABCB24D00B62366 /* RideRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8065042ABCB24D00B62366 /* RideRequestView.swift */; };
 		1F8065072ABCB3A600B62366 /* IconsForCurrentLocationToDest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8065062ABCB3A600B62366 /* IconsForCurrentLocationToDest.swift */; };
 		1F80650A2ABF5B6C00B62366 /* UberRideType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8065092ABF5B6C00B62366 /* UberRideType.swift */; };
+		1F80650C2ACBB26200B62366 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80650B2ACBB26200B62366 /* Double.swift */; };
 		1FA2BAB42AB2545E004311D0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7A8B7F2AB22EF200F1C6DC /* HomeView.swift */; };
 		1FA2BABA2AB3E9A0004311D0 /* UberMapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7A8B942AB2338C00F1C6DC /* UberMapViewRepresentable.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		1F8065042ABCB24D00B62366 /* RideRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideRequestView.swift; sourceTree = "<group>"; };
 		1F8065062ABCB3A600B62366 /* IconsForCurrentLocationToDest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsForCurrentLocationToDest.swift; sourceTree = "<group>"; };
 		1F8065092ABF5B6C00B62366 /* UberRideType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberRideType.swift; sourceTree = "<group>"; };
+		1F80650B2ACBB26200B62366 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 		1F7A8B902AB2303E00F1C6DC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1F80650B2ACBB26200B62366 /* Double.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				1F8065052ABCB24D00B62366 /* RideRequestView.swift in Sources */,
 				1F8065022AB8FDE800B62366 /* MapViewState.swift in Sources */,
 				1F8064F72AB784A000B62366 /* HomePageActionButton.swift in Sources */,
+				1F80650C2ACBB26200B62366 /* Double.swift in Sources */,
 				1F8064FA2AB7872A00B62366 /* SearchLocationDetailView.swift in Sources */,
 				1F7A8B7E2AB22EF200F1C6DC /* UberDemoApp.swift in Sources */,
 				1F8065072ABCB3A600B62366 /* IconsForCurrentLocationToDest.swift in Sources */,

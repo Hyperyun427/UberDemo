@@ -31,6 +31,7 @@ class SearchLocationViewModel: NSObject, ObservableObject{
         searchCompleter.queryFragment = queryFragment
     }
     
+    
     var userLocation:CLLocationCoordinate2D?
     
     //helper function to get selected location coordinate
