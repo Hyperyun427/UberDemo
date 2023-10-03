@@ -39,8 +39,7 @@ struct HomePageActionButton: View {
         case .SearchingForDestination:
             mapState = .defaultHomePage
         case .DestinationSelected:
-            viewModel.selectedLocation = nil
-            viewModel.selectedCoordinates = nil
+            viewModel.selectedCoordinate = nil
             mapState = .defaultHomePage
         }
     }

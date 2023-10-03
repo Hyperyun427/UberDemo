@@ -74,7 +74,7 @@ struct RideRequestView: View {
                                 Text(rideType.name)
                                     .font(.system(size: 14, weight: .semibold))
                                 
-                                Text("$\(locationViewModel.computeRidePrice(forType: rideType))")
+                                Text(locationViewModel.computeRidePrice(forType: rideType).toCurrent())
                                     .font(.system(size: 14, weight: .semibold))
                                 
                             }

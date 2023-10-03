@@ -12,10 +12,10 @@ class SearchLocationViewModel: NSObject, ObservableObject{
     
     //getting input from queryFragment, rework from apple to queryFragment and send to result
     @Published var results = [MKLocalSearchCompletion]()
-    @Published var selectedCoordinates: CLLocationCoordinate2D?
+    @Published var selectedCoordinate: UberLocation?
     
     private let searchCompleter = MKLocalSearchCompleter()
-    var selectedLocation: String?
+    //var selectedLocation: String?
     var queryFragment: String = ""{
         didSet{
             print("Debug: QueryFragment is \(queryFragment)")
@@ -49,7 +49,7 @@ class SearchLocationViewModel: NSObject, ObservableObject{
             guard let item = response?.mapItems.first else { return }
             let coordinate = item.placemark.coordinate
             
-            self.selectedCoordinates = coordinate
+            self.selectedCoordinate = UberLocation(title: location.title, coordinate: coordinate)
             
             print("DEBUG: Location Coordinate is \(coordinate)")
         }
@@ -69,11 +69,11 @@ class SearchLocationViewModel: NSObject, ObservableObject{
     
     func computeRidePrice(forType type: UberRideType) -> Double{
         
-        guard let coordinate = selectedCoordinates else{ return 0.0 }
+        guard let coordinate = selectedCoordinate else{ return 0.0 }
         guard let userLocation = userLocation else { return 0.0 }
         
         let curLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
-        let destination = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let destination = CLLocation(latitude: coordinate.coordinate.latitude, longitude: coordinate.coordinate.longitude)
         
         let tripDistanceInMeters = curLocation.distance(from: destination)
         
