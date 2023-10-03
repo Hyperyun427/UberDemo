@@ -49,7 +49,7 @@ struct UberMapViewRepresentable: UIViewRepresentable{
                 print("DEBUG: Selected Location in UberMapViewRepresentable is \(coordinate)")
             }
             break
-        case .polylineAdded:
+        case .DestinationUIUpdated:
             break
         }
         
@@ -125,7 +125,7 @@ extension UberMapViewRepresentable{
                 self.parent.mapView.addOverlay(route.polyline)
                 
                 //change state
-                self.parent.mapState = .polylineAdded
+                self.parent.mapState = .DestinationUIUpdated
                 
                 //create a view to rearrange the route in DestinationSelected view
                 let rect = self.parent.mapView.mapRectThatFits(route.polyline.boundingMapRect, edgePadding: .init(top: 64, left: 32, bottom: 500, right: 32))

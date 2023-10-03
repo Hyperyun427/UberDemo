@@ -40,8 +40,8 @@ struct HomeView: View {
                 
             }
             
-            if mapState == .DestinationSelected || mapState == .polylineAdded{
-                RideRequestView().transition(.move(edge: .bottom))
+            if mapState == .DestinationSelected || mapState == .DestinationUIUpdated{
+                RideRequestView(mapstate: $mapState).transition(.move(edge: .bottom))
             }
         }
         .edgesIgnoringSafeArea(.bottom)

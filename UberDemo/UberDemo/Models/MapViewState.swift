@@ -17,7 +17,7 @@ enum MapViewState{
     
     case DestinationSelected
     
-    case polylineAdded
+    case DestinationUIUpdated
     
     
 }

@@ -11,7 +11,7 @@ struct RideRequestView: View {
     
     @State private var selectedRideType: UberRideType = .uberX
     @EnvironmentObject var locationViewModel: SearchLocationViewModel
-    
+    @Binding var mapstate:MapViewState
     var body: some View {
         VStack{
             Capsule()
@@ -131,6 +131,7 @@ struct RideRequestView: View {
           // confirm ride button
             
             Button{
+                mapstate = .defaultHomePage
                 
             }label: {
                 Text("CONFIRM RIDE")
@@ -153,6 +154,6 @@ struct RideRequestView: View {
 
 struct RideRequestView_Previews: PreviewProvider {
     static var previews: some View {
-        RideRequestView()
+        RideRequestView(mapstate: .constant(.DestinationUIUpdated))
     }
 }
