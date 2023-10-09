@@ -42,7 +42,7 @@ struct RideRequestView: View {
                         if let location = locationViewModel.selectedCoordinate{
                             Text(location.title)
                                 .font(.system(size: 16))
-                                .foregroundColor(.black)
+                                .foregroundColor(Color.theme.TextColor)
                         }
                    
                             
@@ -87,8 +87,8 @@ struct RideRequestView: View {
                         }
                         .frame(width: 112, height:  140)
                         //if selected certain rideType, font change color from black to white, background change from white to blud and scale a bit
-                        .foregroundColor(rideType == selectedRideType ? .white: .black)
-                        .background(Color(rideType == selectedRideType ? .systemBlue: .systemGroupedBackground))
+                        .foregroundColor(rideType == selectedRideType ? .white: Color.theme.TextColor)
+                        .background(rideType == selectedRideType ? Color(.systemBlue): Color.theme.SecondBackgroundColor)
                         .scaleEffect(rideType == selectedRideType ? 1.2 : 1.0)
                         .cornerRadius(10)
                         .onTapGesture{
@@ -124,7 +124,7 @@ struct RideRequestView: View {
                     .padding()
             }
             .frame(height: 50)
-            .background(Color(.systemGroupedBackground))
+            .background(Color.theme.SecondBackgroundColor)
             .cornerRadius(10)
             .padding(.horizontal)
             
@@ -155,7 +155,7 @@ struct RideRequestView: View {
             
         }
         .padding(.bottom, 24)
-        .background(.white)
+        .background(Color.theme.BackgroundColor)
         .cornerRadius(12)
     }
 }
